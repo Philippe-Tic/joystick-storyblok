@@ -3,7 +3,7 @@ import DynamicComponent from '../components/DynamicComponent'
 
 const Grid = ({ blok }) => {
   return (
-    <div className="grid">
+    <div>
       {blok.columns.map((blok) =>
         (<DynamicComponent blok={blok} key={blok._uid}/>)
       )}

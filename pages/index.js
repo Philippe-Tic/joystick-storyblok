@@ -1,15 +1,15 @@
 import Head from "next/head"
-import styles from "../styles/Home.module.css"
 
 // The Storyblok Client
-import { Storyblok } from "../lib/storyblok"
+import Storyblok, { useStoryblok } from "../lib/storyblok"
 import DynamicComponent from '../components/DynamicComponent'
 
-export default function Home(props) {
-  const story = props.story
+export default function Home({ story, preview }) {
+  // we only initialize the visual editor if we're in preview mode
+  story = useStoryblok(story, preview)
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -17,11 +17,12 @@ export default function Home(props) {
 
       <header>
         <h1>
-          { props.story ? props.story.name : 'My Site' }
+          { story ? story.name : 'My Site' }
         </h1>
       </header>
-
-      <DynamicComponent blok={story.content} />
+      <main>
+        <DynamicComponent blok={story.content} />
+      </main>
     </div>
   )
 }
@@ -31,7 +32,7 @@ export async function getStaticProps(context) {
   let slug = "home"
   // the storyblok params
   let params = {
-    version: "draft", // or 'published'
+    version: "published", // or 'draft'
   }
 
   // checks if Next.js is in preview mode
@@ -51,6 +52,6 @@ export async function getStaticProps(context) {
       story: data ? data.story : false,
       preview: context.preview || false
     },
-    revalidate: 10,
+    revalidate: 3600,
   }
 }

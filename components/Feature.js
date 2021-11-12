@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Feature = ({ blok }) => (
-    <div className="column feature">
+    <div>
       {blok.name}
     </div>
 )

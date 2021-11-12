@@ -1,10 +1,10 @@
 import React from "react";
-import DynamicComponent from "../components/DynamicComponent";
+import DynamicComponent from "/components/dynamic/DynamicComponent";
 import Head from "next/head";
 
-import Storyblok, { useStoryblok } from "../lib/storyblok";
+import Storyblok, { useStoryblok } from "/lib/storyblok";
 
-export default function Page({ story, preview }) {
+const Page = ({ story, preview }) => {
   story = useStoryblok(story, preview);
 
   return (
@@ -17,12 +17,12 @@ export default function Page({ story, preview }) {
       <DynamicComponent blok={story.content} />
     </div>
   );
-}
+};
 
-export async function getStaticProps({ params, preview = false }) {
-  let slug = params.slug ? params.slug.join("/") : "home";
+export const getStaticProps = async ({ params, preview = false }) => {
+  const slug = params.slug ? params.slug.join("/") : "home";
 
-  let sbParams = {
+  const sbParams = {
     version: "draft", // or published
   };
 
@@ -32,7 +32,7 @@ export async function getStaticProps({ params, preview = false }) {
   }
 
   // load the stories insides the pages folder
-  let { data } = await Storyblok.get(`cdn/stories/pages/${slug}`, sbParams);
+  const { data } = await Storyblok.get(`cdn/stories/pages/${slug}`, sbParams);
 
   return {
     props: {
@@ -41,14 +41,14 @@ export async function getStaticProps({ params, preview = false }) {
     },
     revalidate: 3600, // revalidate every hour
   };
-}
+};
 
-export async function getStaticPaths() {
-  let { data } = await Storyblok.get('cdn/links/', {
-    starts_with: 'pages'
-  })
+export const getStaticPaths = async () => {
+  const { data } = await Storyblok.get("cdn/links/", {
+    starts_with: "pages",
+  });
 
-  let paths = [];
+  const paths = [];
   Object.keys(data.links).forEach((linkKey) => {
     // don't create routes for folders and the index page
     if (data.links[linkKey].is_folder || data.links[linkKey].slug === "home") {
@@ -58,8 +58,8 @@ export async function getStaticPaths() {
     // get array for slug because of catch all
     const slug = data.links[linkKey].slug;
     // remove the pages part from the slug
-    let newSlug = slug.replace('pages', '')
-    let splittedSlug = newSlug.split("/");
+    const newSlug = slug.replace("pages", "");
+    const splittedSlug = newSlug.split("/");
 
     paths.push({ params: { slug: splittedSlug } });
   });
@@ -68,4 +68,6 @@ export async function getStaticPaths() {
     paths: paths,
     fallback: false,
   };
-}
+};
+
+export default Page;

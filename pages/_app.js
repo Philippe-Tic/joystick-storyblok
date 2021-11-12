@@ -1,16 +1,12 @@
-import Script from 'next/script';
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "/config/theme/theme.js"
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
-    <>
+    <ChakraProvider theme={theme}>
       <Component {...pageProps} />
-      <Script
-        src="//app.storyblok.com/f/storyblok-v2-latest.js"
-        type="text/javascript"
-        id="storyblokBridge"
-      />
-    </>
-  )
-}
+    </ChakraProvider>
+  );
+};
 
-export default MyApp
+export default MyApp;

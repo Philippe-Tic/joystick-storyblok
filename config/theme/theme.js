@@ -1,5 +1,17 @@
-import { extendTheme } from "@chakra-ui/react"
-import tailwindColors from './tailwindColors';
+import { extendTheme } from "@chakra-ui/react";
+import tailwindColors from "./tailwindColors";
+
+const styles = {
+  global: (props) => ({
+    "html, body": {
+      color: props.colorMode === "dark" ? "white" : "gray.600",
+      backgroundColor: props.colorMode === "dark" ? "brand.900" : "gray.50",
+    },
+    a: {
+      color: props.colorMode === "dark" ? "teal.300" : "teal.500",
+    },
+  }),
+}
 
 const colors = {
   // Update me with other Tailwind colors or with https://smart-swatch.netlify.app/
@@ -21,4 +33,4 @@ const colors = {
   warning: tailwindColors.amber,
 };
 
-export const theme = extendTheme({ colors })
+export const theme = extendTheme({ colors, styles });

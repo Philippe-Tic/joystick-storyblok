@@ -1,6 +1,7 @@
 import React from "react";
 import DynamicComponent from "/components/dynamic/DynamicComponent";
 import Head from "next/head";
+import Navbar from "/components/static/Navbar";
 
 import Storyblok, { useStoryblok } from "/lib/storyblok";
 
@@ -8,14 +9,16 @@ const Page = ({ story, preview }) => {
   story = useStoryblok(story, preview);
 
   return (
-    <div>
+    <>
       <Head>
         <title>{story ? story.name : "My Site"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navbar />
+
       <DynamicComponent blok={story.content} />
-    </div>
+    </>
   );
 };
 

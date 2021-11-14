@@ -3,25 +3,25 @@ import Head from "next/head";
 // The Storyblok Client
 import Storyblok, { useStoryblok } from "../lib/storyblok";
 import DynamicComponent from "/components/dynamic/DynamicComponent";
+import Navbar from "/components/static/Navbar";
 
 const Home = ({ story, preview }) => {
   // we only initialize the visual editor if we're in preview mode
   story = useStoryblok(story, preview);
 
   return (
-    <div>
+    <>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <h1>{story ? story.name : "My Site"}</h1>
-      </header>
+      <Navbar />
+        {/* <h1>{story ? story.name : "My Site"}</h1> */}
       <main>
         <DynamicComponent blok={story.content} />
       </main>
-    </div>
+    </>
   );
 };
 

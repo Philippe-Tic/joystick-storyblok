@@ -153,7 +153,10 @@ const Navbar = ({ isMobile, isNavbarOpen, setIsNavbarOpen, ...rest }) => {
 
 const NavbarLink = ({ withHover, to, children, ...rest }) => {
   const router = useRouter();
-  const isActive = router.asPath === to;
+  const isActive = router.asPath == to;
+  console.log(router.asPath);
+  console.log({ to });
+  console.log({ isActive });
   return (
     <Link href={to} passHref>
       <ChakraLink

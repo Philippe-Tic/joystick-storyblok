@@ -10,7 +10,6 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import { Logo } from '/components/static/Logo';
 
 const Home = ({ story, preview }) => {
-  // we only initialize the visual editor if we're in preview mode
   story = useStoryblok(story, preview);
 
   const breakpoint = useBreakpoint();

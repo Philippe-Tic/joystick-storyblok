@@ -107,7 +107,9 @@ export const getStaticPaths = async () => {
     const newSlug = slug.replace('pages', '');
     const splittedSlug = newSlug.split('/');
 
-    paths.push({ params: { slug: splittedSlug } });
+    console.log(splittedSlug.slice(1));
+
+    paths.push({ params: { slug: splittedSlug.slice(1) } });
   });
 
   return {

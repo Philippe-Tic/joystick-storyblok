@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { CloseIcon } from '@chakra-ui/icons';
 
 const Navbar = ({ isMobile, isNavbarOpen, setIsNavbarOpen, ...rest }) => {
-  console.log(isMobile && isNavbarOpen);
   return (
     <Flex
       position="fixed"
@@ -138,7 +137,6 @@ const Navbar = ({ isMobile, isNavbarOpen, setIsNavbarOpen, ...rest }) => {
             <Flex
               py="5"
               px="24"
-              to="/contact"
               fontFamily="Oswald"
               justifyContent={['center', 'center', 'flex-start']}
               color="brand.300"
@@ -156,8 +154,6 @@ const Navbar = ({ isMobile, isNavbarOpen, setIsNavbarOpen, ...rest }) => {
 const NavbarLink = ({ withHover, to, children, ...rest }) => {
   const router = useRouter();
   const isActive = router.asPath === to;
-  console.log({ router });
-  console.log({ to });
   return (
     <Link href={to} passHref>
       <ChakraLink
